@@ -37,6 +37,10 @@
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.69);
 }
 
+.product-card:hover .product-cart{
+    display: flex;
+}
+
 .product-card:nth-child(3n){
     margin-right: 0;
 }
@@ -53,9 +57,10 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
+    display: none;
 }
 
 .product-card i{
@@ -66,9 +71,7 @@
 .product-image{
     width: 336px;
     height: 318px;
-
 }
-
 
 .product-name{
     font-family: 'Raleway';
