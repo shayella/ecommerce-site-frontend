@@ -7,6 +7,7 @@ import NavBar from "./components/common/NavBar";
 import ProductList from "./components/products/ProductList";
 
 import reportWebVitals from "./reportWebVitals";
+import ProductDetails from "./components/products/ProductDetails";
 
 const localGraphQL = "http://localhost:4000";
 export const client = new ApolloClient({
@@ -26,6 +27,7 @@ ReactDOM.render(
             path="category/:categoryname"
             element={<ProductList />}
           />
+          <Route exact path="prdouct/:id" element={<ProductDetails />} />
         </Routes>
       </Router>
     </ApolloProvider>
