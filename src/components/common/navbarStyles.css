@@ -1,0 +1,55 @@
+
+.nav-bar{
+    width: 86%;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+a.link{
+    font-size: 16px;
+    line-height:19.2px ;
+    border:none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    padding: 28px 20px 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #1D1F22;
+    margin-right: 12px;
+}
+
+a.link-active, a.link:hover{
+    color: #5ECE7B;
+    border-bottom: #5ECE7B solid 2px;
+    
+}
+
+.logo{
+    align-self: center;
+}
+
+.currency-container, .shopping-cart-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.flex{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.shopping-cart-container{
+    margin-left: 22px;
+}
+
+.currency-icon{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin-right: 10px;
+}
