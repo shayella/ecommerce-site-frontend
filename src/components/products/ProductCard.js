@@ -24,7 +24,7 @@ class ProductCard extends Component {
           />
           {currentProduct.inStock ? (
             <div className="product-cart">
-              <i className="fa fa-cart-shopping"></i>
+              <i className="fa fa-shopping-cart" aria-hidden="true"></i>
             </div>
           ) : (
             <div className="no-stock">
