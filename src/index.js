@@ -27,7 +27,7 @@ ReactDOM.render(
             path="category/:categoryname"
             element={<ProductList />}
           />
-          <Route exact path="prdouct/:id" element={<ProductDetails />} />
+          <Route exact path="product/:id" element={<ProductDetails />} />
         </Routes>
       </Router>
     </ApolloProvider>
