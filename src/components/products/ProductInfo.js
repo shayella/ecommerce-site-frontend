@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class ProductInfo extends Component {
   state = {};
@@ -16,19 +17,30 @@ class ProductInfo extends Component {
         <p className="product-name">{product.name}</p>
 
         {productHasAttributes ? (
-          <>
-            <p className="product-label">{product.attributes[0].name}</p>
-            <div className="product-attribute-container">
-              {product.attributes.length > 0 &&
-                product.attributes[0].items.map((item) => {
-                  return (
-                    <button className="product-attribute">
-                      {item.displayValue}
-                    </button>
-                  );
-                })}
-            </div>
-          </>
+          product.attributes.map((attribute) => {
+            return (
+              <>
+                <p className="product-label">{attribute.name}</p>
+                <div className="product-attribute-container">
+                  {attribute.items.map((item, i) => {
+                    return (
+                      <button
+                        key={i}
+                        className="product-attribute"
+                        style={
+                          attribute.type === "swatch"
+                            ? { backgroundColor: item.value, color: item.value }
+                            : {}
+                        }
+                      >
+                        {attribute.type === "swatch" ? "" : item.value}
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            );
+          })
         ) : (
           <></>
         )}
@@ -38,8 +50,13 @@ class ProductInfo extends Component {
           {productPrice.currency.symbol + " "}
           {productPrice.amount}
         </p>
-        <button className="add-btn">Add to Cart</button>
-        <p className="description">{product.description}</p>
+        <Link to="/cart" className="add-btn">
+          Add to Cart
+        </Link>
+        <div
+          className="description"
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        ></div>
       </div>
     );
   }
