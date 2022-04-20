@@ -8,6 +8,7 @@ import ProductList from "./components/products/ProductList";
 
 import reportWebVitals from "./reportWebVitals";
 import ProductDetails from "./components/products/ProductDetails";
+import MyCart from "./components/cart/MyCart";
 
 const localGraphQL = "http://localhost:4000";
 export const client = new ApolloClient({
@@ -28,6 +29,7 @@ ReactDOM.render(
             element={<ProductList />}
           />
           <Route exact path="product/:id" element={<ProductDetails />} />
+          <Route exact path="cart" element={<MyCart />} />
         </Routes>
       </Router>
     </ApolloProvider>
