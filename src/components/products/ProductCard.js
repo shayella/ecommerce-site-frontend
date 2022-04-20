@@ -42,7 +42,9 @@ class ProductCard extends Component {
             )}
           </div>
 
-          <p className="product-name">{currentProduct.name}</p>
+          <p className="product-name">
+            {currentProduct.brand} {currentProduct.name}
+          </p>
           <p className="product-price">
             {productPriceCurrency.currency.symbol} {productPriceCurrency.amount}
           </p>
