@@ -1,0 +1,120 @@
+.my-cart-wrapper{
+    width: 88%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.cart-heading{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    text-transform: uppercase;
+    color: #1D1F22;
+}
+.cart-item-lg{
+    border-top: solid #E5E5E5 1px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.cart-item-inner{
+    display: flex;
+}
+
+.cart-item-brand{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+    color: #1D1F22;
+}
+
+.cart-item-name{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 27px;
+    color: #1D1F22;
+}
+
+.cart-item-price{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 18px;
+}
+
+.cart-item-attribute-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.cart-item-attribute{
+    border: 1px solid #A6A6A6;
+    margin-right: 12px;
+    margin-top: 10px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: center;
+    padding: 14px 29px;
+    letter-spacing: 0.05em;
+    color: #292929;
+    background-color: white;
+    cursor: pointer;
+}
+
+.item-info{
+    flex-grow: 1;
+}
+
+.cart-item-image{
+    width: 151px ;
+    height: 185px;
+}
+
+
+.cart-counters{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cart-item-count{
+    font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 160%;
+justify-content: center;
+
+
+color: #1D1F22;
+}
+
+.cart-item-counter{
+    border: 1px solid #A6A6A6;
+    margin-right: 12px;
+    margin-top: 10px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 18px;
+    text-align: center;
+    padding: 14px;
+    letter-spacing: 0.05em;
+    color: #292929;
+    background-color: white;
+    cursor: pointer;
+}
+
+
