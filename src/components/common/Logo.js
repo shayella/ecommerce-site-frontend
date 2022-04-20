@@ -1,13 +1,14 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
 class Logo extends Component {
   render() {
     return (
-      <p className="logo">
-        <a href="#">
+      <div className="app-logo">
+        <Link to="/">
           <img src={logo} alt="logo" />
-        </a>
-      </p>
+        </Link>
+      </div>
     );
   }
 }
