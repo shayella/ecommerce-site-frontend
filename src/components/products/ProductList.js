@@ -29,6 +29,7 @@ class ProductList extends Component {
           products {
             id
             name
+            brand
             prices {
               currency {
                 symbol
