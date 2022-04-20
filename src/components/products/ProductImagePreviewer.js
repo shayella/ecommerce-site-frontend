@@ -20,9 +20,10 @@ class ProductImagePreviewer extends Component {
     return (
       <div className="product-image-previewer">
         <div className="image-thumbnail-container">
-          {this.state.allImages.map((image) => {
+          {this.state.allImages.map((image, i) => {
             return (
               <img
+                key={i}
                 src={image}
                 className="image-thumbnail"
                 onClick={() => {
