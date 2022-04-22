@@ -1,17 +1,32 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { changeSelectedCategory } from "../../actions/categoriesActions";
+import { fetchProductByCategory } from "../../actions/productActions";
+import { Link } from "react-router-dom";
 
 class MyNavBarLink extends Component {
   render() {
     return (
-      <NavLink
-        to={`category/${this.props.name}`}
-        className={({ isActive }) => (isActive ? "link link-active" : "link")}
+      <Link
+        to={"/"}
+        onClick={() => {
+          this.props.changeSelectedCategory(this.props.name);
+          this.props.fetchProductByCategory(this.props.name);
+        }}
+        className={this.props.isSelected ? "link link-active" : "link"}
       >
         {this.props.name}
-      </NavLink>
+      </Link>
     );
   }
 }
 
-export default MyNavBarLink;
+MyNavBarLink.propTypes = {
+  changeSelectedCategory: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  changeSelectedCategory,
+  fetchProductByCategory,
+})(MyNavBarLink);
