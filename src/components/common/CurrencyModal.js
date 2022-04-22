@@ -1,53 +1,51 @@
-import { gql } from "@apollo/client";
 import React, { Component } from "react";
-import { client } from "../..";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {
+  fetchAllCurrencies,
+  changeSelectedCurrency,
+} from "../../actions/currencyActions";
 
 class CurrencyOptionsModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currencies: [],
-      selectedCurrency: {},
-    };
-  }
-
-  getAllSupportedCurrencies() {
-    client
-      .query({
-        query: gql`
-          {
-            currencies {
-              label
-              symbol
-            }
-          }
-        `,
-      })
-      .then((result) => {
-        this.setState({
-          currencies: result.data.currencies,
-          selectedCurrency: result.data.currencies[0],
-        });
-      });
-  }
-
-  componentDidMount() {
-    this.getAllSupportedCurrencies();
+    this.props.fetchAllCurrencies();
   }
 
   render() {
+    const currencies = this.props.currencies.items.map((currency, i) => {
+      return (
+        <p
+          key={i}
+          className="currency"
+          onClick={() => {
+            this.props.changeSelectedCurrency(currency);
+            this.props.toggleModal();
+          }}
+        >
+          {currency.symbol} {currency.label}
+        </p>
+      );
+    });
+
     return (
       <div className={this.props.showOptions ? "currency-modal" : "hidden"}>
-        {this.state.currencies.map((currency, i) => {
-          return (
-            <p key={i} className="currency">
-              {currency.symbol} {currency.label}
-            </p>
-          );
-        })}
+        {currencies}
       </div>
     );
   }
 }
 
-export default CurrencyOptionsModal;
+CurrencyOptionsModal.propTypes = {
+  fetchAllCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.object,
+};
+
+const mapStateToProps = (state) => ({
+  currencies: state.currencies,
+});
+
+export default connect(mapStateToProps, {
+  fetchAllCurrencies,
+  changeSelectedCurrency,
+})(CurrencyOptionsModal);
