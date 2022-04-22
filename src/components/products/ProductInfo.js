@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
+import PropTypes from "prop-types";
+import { addProductToCart } from "../../actions/cartActions";
 class ProductInfo extends Component {
   state = {};
   render() {
     let product = this.props.info;
     let productPrice = product.prices.filter(
-      (price) => price.currency.symbol === "$"
+      (price) => price.currency.symbol === this.props.selectedCurrency.symbol
     )[0];
 
     let productHasAttributes = product.attributes.length > 0;
@@ -25,8 +27,23 @@ class ProductInfo extends Component {
                   {attribute.items.map((item, i) => {
                     return (
                       <button
-                        key={i}
-                        className="product-attribute"
+                        key={product.id + i}
+                        className={
+                          product.selectedAttributes &&
+                          Object.keys(product.selectedAttributes).includes(
+                            attribute.name
+                          ) &&
+                          product.selectedAttributes[attribute.name] ===
+                            item.value
+                            ? "product-attribute selected-attribute"
+                            : "product-attribute"
+                        }
+                        onClick={() => {
+                          this.props.selectAttributes(
+                            attribute.name,
+                            item.value
+                          );
+                        }}
                         style={
                           attribute.type === "swatch"
                             ? { backgroundColor: item.value, color: item.value }
@@ -50,7 +67,13 @@ class ProductInfo extends Component {
           {productPrice.currency.symbol + " "}
           {productPrice.amount}
         </p>
-        <Link to="/cart" className="add-btn">
+        <Link
+          to="/cart"
+          onClick={() => {
+            this.props.addProductToCart({ ...product, count: 1 });
+          }}
+          className="add-btn"
+        >
           Add to Cart
         </Link>
         <div
@@ -62,4 +85,13 @@ class ProductInfo extends Component {
   }
 }
 
-export default ProductInfo;
+ProductInfo.propTypes = {
+  selectedCurrency: PropTypes.object,
+  addProductToCart: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  selectedCurrency: state.currencies.selectedCurrency,
+});
+
+export default connect(mapStateToProps, { addProductToCart })(ProductInfo);
