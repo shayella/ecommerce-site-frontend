@@ -1,42 +1,100 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import ImageSlider from "./ImageSlider";
 
 class CartItemFullView extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {};
   render() {
+    const {
+      id,
+      brand,
+      name,
+      gallery,
+      prices,
+      attributes,
+      selectedAttributes,
+      count,
+    } = this.props.product;
+
+    let productPrice = prices.filter(
+      (price) => price.currency.symbol === this.props.selectedCurrency.symbol
+    )[0];
     return (
       <div className="cart-item-lg">
         <div className="cart-item-inner">
           <div className="item-info">
-            <p className="cart-item-brand">Appollo</p>
-            <p className="cart-item-name">Running</p>
-            <p className="cart-item-price">$30</p>
-            <div className="cart-item-attribute-container">
-              <button className="cart-item-attribute">Small</button>
+            <p className="cart-item-brand">{brand}</p>
+            <p className="cart-item-name">{name}</p>
+            <p className="cart-item-price">
+              {productPrice.currency.symbol} {productPrice.amount}
+            </p>
 
-              <button className="cart-item-attribute">Medium</button>
-            </div>
+            {/* Make a reusable attributes component */}
+            {attributes.length > 0 ? (
+              attributes.map((attribute) => {
+                return (
+                  <>
+                    <p className="product-label">{attribute.name}</p>
+                    <div className="cart-item-attribute-container">
+                      {attribute.items.map((item, i) => {
+                        return (
+                          <button
+                            key={id + i}
+                            className={
+                              selectedAttributes &&
+                              Object.keys(selectedAttributes).includes(
+                                attribute.name
+                              ) &&
+                              selectedAttributes[attribute.name] === item.value
+                                ? "product-attribute selected-attribute"
+                                : "product-attribute"
+                            }
+                            // onClick={() => {
+                            //   this.props.selectAttributes(
+                            //     attribute.name,
+                            //     item.value
+                            //   );
+                            // }}
+                            style={
+                              attribute.type === "swatch"
+                                ? {
+                                    backgroundColor: item.value,
+                                    color: item.value,
+                                  }
+                                : {}
+                            }
+                          >
+                            {attribute.type === "swatch" ? "" : item.value}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                );
+              })
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="cart-counters">
             <button className="cart-item-counter">+</button>
-            <p className="cart-item-count">1</p>
+            <p className="cart-item-count">{count}</p>
             <button className="cart-item-counter">-</button>
           </div>
 
-          <div>
-            <img
-              className="cart-item-image"
-              alt=""
-              src="https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_2_720x.jpg?v=1612816087"
-            />
-          </div>
+          <ImageSlider gallery={gallery} />
         </div>
       </div>
     );
   }
 }
+CartItemFullView.propTypes = {
+  selectedCurrency: PropTypes.object,
+};
 
-export default CartItemFullView;
+const mapStateToProps = (state) => ({
+  selectedCurrency: state.currencies.selectedCurrency,
+});
+
+export default connect(mapStateToProps)(CartItemFullView);
