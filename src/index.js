@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import store from "./store";
 import App from "./App";
 import NavBar from "./components/common/NavBar";
 import ProductList from "./components/products/ProductList";
-
 import reportWebVitals from "./reportWebVitals";
 import ProductDetails from "./components/products/ProductDetails";
 import MyCart from "./components/cart/MyCart";
@@ -19,19 +20,16 @@ export const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <Router>
-        <NavBar></NavBar>
-        <Routes>
-          <Route exact path="" element={<App />} />
-          <Route
-            exact
-            path="category/:categoryname"
-            element={<ProductList />}
-          />
-          <Route exact path="product/:id" element={<ProductDetails />} />
-          <Route exact path="cart" element={<MyCart />} />
-        </Routes>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <NavBar></NavBar>
+          <Routes>
+            <Route exact path="" element={<ProductList />} />
+            <Route exact path="product/:id" element={<ProductDetails />} />
+            <Route exact path="cart" element={<MyCart />} />
+          </Routes>
+        </Router>
+      </Provider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
