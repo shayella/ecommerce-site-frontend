@@ -1,66 +1,37 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import CartNav from "./CartNav";
 import CurrencyOptions from "./CurrencyOptions";
 import Logo from "./Logo";
 import MyNavBarLink from "./NavBarLink";
-import { gql } from "@apollo/client/core";
 import "./navbarStyles.css";
-import { client } from "../..";
+import { connect } from "react-redux";
+import { fetchAllCategories } from "../../actions/categoriesActions";
 
 class NavBar extends Component {
-  constructor() {
-    super();
-    this.state = { categories: [], isLoading: false, selectedCategory: "" };
-    this.changeSelectedCategory = this.changeSelectedCategory.bind(this);
-  }
-
-  fetchAllCategories() {
-    client
-      .query({
-        query: gql`
-          {
-            categories {
-              name
-            }
-          }
-        `,
-      })
-      .then((result) => {
-        console.log("RESULT ", result.data.categories);
-        this.setState({
-          categories: result.data.categories,
-          selectedCategory: result.data.categories[0].name,
-        });
-      });
-  }
-
-  changeSelectedCategory(categoryName) {
-    console.log("Selected Category ", categoryName);
-    this.setState({ selectedCategory: categoryName });
-  }
-
-  componentDidMount() {
-    this.fetchAllCategories();
+  constructor(props) {
+    super(props);
+    this.props.fetchAllCategories();
   }
 
   render() {
     return (
       <div className="nav-bar">
         <div>
-          {this.state.categories.map((category, i) => {
-            return (
-              <MyNavBarLink
-                key={category.name}
-                name={category.name}
-                selected={this.state.selectedCategory}
-                handleClick={this.changeSelectedCategory}
-              />
-            );
-          })}
+          {this.props.categories.items.length > 0 &&
+            this.props.categories.items.map((category, i) => {
+              return (
+                <MyNavBarLink
+                  key={category.name}
+                  name={category.name}
+                  isSelected={
+                    this.props.categories.selectedCategory === category.name
+                  }
+                />
+              );
+            })}
         </div>
-        <div>
-          <Logo />
-        </div>
+        <Logo />
         <div className="flex">
           <CurrencyOptions />
           <CartNav />
@@ -70,4 +41,14 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+NavBar.propTypes = {
+  fetchAllCategories: PropTypes.func.isRequired,
+  categories: PropTypes.object,
+};
+
+const mapStateToProps = (state) => ({
+  categories: state.categories,
+  // selectedCategory: state.categories.selectedCategory,
+});
+
+export default connect(mapStateToProps, { fetchAllCategories })(NavBar);
