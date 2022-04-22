@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 class ProductCard extends Component {
-  state = {};
   render() {
     const currentProduct = this.props.product;
     let productPriceCurrency = currentProduct.prices.filter(
-      (price) => price.currency.symbol === "$"
+      (price) => price.currency.symbol === this.props.selectedCurrency.symbol
     )[0];
     return (
       <Link
@@ -17,14 +18,7 @@ class ProductCard extends Component {
             : "product-card product-out-of-stock"
         }
       >
-        <div
-        // key={currentProduct.id}
-        // className={
-        //   currentProduct.inStock
-        //     ? "product-card"
-        //     : "product-card product-out-of-stock"
-        // }
-        >
+        <>
           <div className="product-image-container">
             <img
               className="product-image"
@@ -45,13 +39,22 @@ class ProductCard extends Component {
           <p className="product-name">
             {currentProduct.brand} {currentProduct.name}
           </p>
+
           <p className="product-price">
             {productPriceCurrency.currency.symbol} {productPriceCurrency.amount}
           </p>
-        </div>
+        </>
       </Link>
     );
   }
 }
 
-export default ProductCard;
+PropTypes.ProductList = {
+  selectedCurrency: PropTypes.object,
+};
+
+const mapStateToProps = (state) => ({
+  selectedCurrency: state.currencies.selectedCurrency,
+});
+
+export default connect(mapStateToProps)(ProductCard);
