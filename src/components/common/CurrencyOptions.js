@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import CurrencyOptionsModal from "./CurrencyModal";
 
 class CurrencyOptions extends Component {
@@ -21,7 +23,7 @@ class CurrencyOptions extends Component {
     return (
       <>
         <div className="currency-container" onClick={this.toggleCurrencyModal}>
-          <p className="currency-icon">$</p>
+          <p className="currency-icon">{this.props.selectedCurrency.symbol}</p>
           <p className="caret-icon">
             <i
               className={
@@ -34,10 +36,21 @@ class CurrencyOptions extends Component {
           </p>
         </div>
         {/* {this.state.isCurrenyModalOpen ? <CurrencyOptionsModal /> : <></>} */}
-        <CurrencyOptionsModal showOptions={this.state.isCurrenyModalOpen} />
+        <CurrencyOptionsModal
+          showOptions={this.state.isCurrenyModalOpen}
+          toggleModal={this.toggleCurrencyModal}
+        />
       </>
     );
   }
 }
 
-export default CurrencyOptions;
+CurrencyOptions.propTypes = {
+  selectedCurrency: PropTypes.object,
+};
+
+const mapStateToProps = (state) => ({
+  selectedCurrency: state.currencies.selectedCurrency,
+});
+
+export default connect(mapStateToProps)(CurrencyOptions);
