@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import ProductImagePreviewer from "./ProductImagePreviewer";
 import "./productDetail.css";
-import { withRouter } from "./ProductList";
+import { withRouter } from "../common/routerUtil";
 import { client } from "../..";
 import { gql } from "@apollo/client";
 import ProductInfo from "./ProductInfo";
+
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
     this.state = { product: null };
+    this.selectAttributes = this.selectAttributes.bind(this);
   }
 
   fetchProductDetails(id) {
@@ -48,11 +50,37 @@ class ProductDetails extends Component {
         },
       })
       .then((result) => {
-        console.log("Product ", result.data.product);
         this.setState({
           product: result.data.product,
         });
       });
+  }
+
+  selectAttributes(attrName, value) {
+    let newProductState = {
+      ...this.state.product,
+    };
+
+    let newAttribute = { [attrName]: value };
+
+    if (Object.keys(newProductState).includes("selectedAttributes")) {
+      newProductState = {
+        ...newProductState,
+        selectedAttributes: {
+          ...newProductState.selectedAttributes,
+          ...newAttribute,
+        },
+      };
+    } else {
+      newProductState = {
+        ...newProductState,
+        selectedAttributes: { ...newAttribute },
+      };
+    }
+
+    this.setState({ product: newProductState });
+
+    console.log("Product ", newProductState);
   }
 
   componentDidMount() {
@@ -67,10 +95,16 @@ class ProductDetails extends Component {
         {this.state.product !== null ? (
           <div className="product-container">
             <ProductImagePreviewer gallery={this.state.product.gallery} />
-            <ProductInfo info={this.state.product}></ProductInfo>
+            <ProductInfo
+              info={this.state.product}
+              selectAttributes={this.selectAttributes}
+              // key={this.state.product.id}
+            ></ProductInfo>
           </div>
         ) : (
-          <p>Loading...</p>
+          <div className="product-container">
+            <p>Loading...</p>
+          </div>
         )}
       </>
     );
