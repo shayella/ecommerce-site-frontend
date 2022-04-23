@@ -1,5 +1,7 @@
 import {
   ADD_PRODUCT_TO_CART,
+  DECREASE_PRODUCT_COUNT_IN_CART,
+  INCREASE_PRODUCT_COUNT_IN_CART,
   REMOVE_PRODUCT_FROM_CART,
 } from "../actions/types";
 
@@ -10,7 +12,7 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PRODUCT_TO_CART:
-      // Check if product exists
+      // Check if product exists, and the selected attributes are the same,
       if (
         state.items.some(
           (e) =>
@@ -22,7 +24,7 @@ const cartReducer = (state = initialState, action) => {
             )
         )
       ) {
-        //  If product already exists and the selected attributes are the same, use increase the count of the product
+        //  If product already exists increase the count of the product
         let newItems = state.items.map((item) =>
           item.id === action.payload.id
             ? { ...item, count: item.count + 1 }
@@ -33,28 +35,44 @@ const cartReducer = (state = initialState, action) => {
         return { items: [...state.items, action.payload] };
       }
 
-    // console.log("Payload ", action.payload.id);
-    // let productInCart = state.items.filter(
-    //   (item) => (item.id = action.payload.id)
-    // )[0];
+    // case REMOVE_PRODUCT_FROM_CART:
+    //   return {
+    //     ...state,
+    //   };
 
-    // console.log("Product in cart ", productInCart);
+    case INCREASE_PRODUCT_COUNT_IN_CART:
+      let newItems = state.items.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, count: item.count + 1 }
+          : item
+      );
+      return { items: [...newItems] };
 
-    // if (productInCart !== undefined) {
-    //   let newItems = state.items.map((item) =>
-    //     item.id === action.payload.id
-    //       ? { ...item, count: item.count + 1 }
-    //       : item
-    //   );
-    //   return { items: [...newItems] };
-    // } else {
-    //   return { items: [...state.items, action.payload] };
-    // }
-
-    case REMOVE_PRODUCT_FROM_CART:
-      return {
-        ...state,
-      };
+    case DECREASE_PRODUCT_COUNT_IN_CART:
+      if (action.payload.count <= 1) {
+        let newItems = state.items.filter(
+          (item) =>
+            item.id !== action.payload.id &&
+            Object.keys(item.selectedAttributes).every(
+              (key) =>
+                item.selectedAttributes[key] !==
+                action.payload.selectedAttributes[key]
+            )
+        );
+        return { items: [...newItems] };
+      } else {
+        let newItems = state.items.map((item) =>
+          item.id === action.payload.id &&
+          Object.keys(item.selectedAttributes).every(
+            (key) =>
+              item.selectedAttributes[key] ===
+              action.payload.selectedAttributes[key]
+          )
+            ? { ...item, count: item.count - 1 }
+            : item
+        );
+        return { items: [...newItems] };
+      }
 
     default:
       return state;
