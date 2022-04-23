@@ -81,10 +81,8 @@
     font-weight: 300;
     font-size: 18px;
     line-height: 160%;
-    color: #1D1F22;
     margin:0;
     margin-top: 24px;
-    
 }
 
 .product-price{
@@ -116,7 +114,6 @@
     text-transform: uppercase;
     color: #8D8F9A;
 }
-
 
 @media only screen and (max-width: 1347px){
     .product-card{
