@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import ImageSlider from "./ImageSlider";
+import {
+  increaseProductInCart,
+  decreaseProductInCart,
+} from "../../actions/cartActions";
 
 class CartItemFullView extends Component {
   render() {
@@ -49,12 +53,6 @@ class CartItemFullView extends Component {
                                 ? "product-attribute selected-attribute"
                                 : "product-attribute"
                             }
-                            // onClick={() => {
-                            //   this.props.selectAttributes(
-                            //     attribute.name,
-                            //     item.value
-                            //   );
-                            // }}
                             style={
                               attribute.type === "swatch"
                                 ? {
@@ -78,9 +76,23 @@ class CartItemFullView extends Component {
           </div>
 
           <div className="cart-counters">
-            <button className="cart-item-counter">+</button>
+            <button
+              className="cart-item-counter"
+              onClick={() => {
+                this.props.increaseProductInCart(this.props.product);
+              }}
+            >
+              +
+            </button>
             <p className="cart-item-count">{count}</p>
-            <button className="cart-item-counter">-</button>
+            <button
+              className="cart-item-counter"
+              onClick={() => {
+                this.props.decreaseProductInCart(this.props.product);
+              }}
+            >
+              -
+            </button>
           </div>
 
           <ImageSlider gallery={gallery} />
@@ -91,10 +103,15 @@ class CartItemFullView extends Component {
 }
 CartItemFullView.propTypes = {
   selectedCurrency: PropTypes.object,
+  increaseProductInCart: PropTypes.func.isRequired,
+  decreaseProductInCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   selectedCurrency: state.currencies.selectedCurrency,
 });
 
-export default connect(mapStateToProps)(CartItemFullView);
+export default connect(mapStateToProps, {
+  increaseProductInCart,
+  decreaseProductInCart,
+})(CartItemFullView);
