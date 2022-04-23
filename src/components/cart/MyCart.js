@@ -30,7 +30,10 @@ class MyCart extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.selectedCurrency !== prevProps.selectedCurrency) {
+    if (
+      this.props.selectedCurrency !== prevProps.selectedCurrency ||
+      this.props.cart !== prevProps.cart
+    ) {
       this.calculateTotal();
     }
   }
