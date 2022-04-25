@@ -79,8 +79,6 @@ class ProductDetails extends Component {
     }
 
     this.setState({ product: newProductState });
-
-    console.log("Product ", newProductState);
   }
 
   componentDidMount() {
@@ -98,12 +96,12 @@ class ProductDetails extends Component {
             <ProductInfo
               info={this.state.product}
               selectAttributes={this.selectAttributes}
-              // key={this.state.product.id}
+              key={this.state.product}
             ></ProductInfo>
           </div>
         ) : (
           <div className="product-container">
-            <p>Loading...</p>
+            <p className="empty-cart">Loading...</p>
           </div>
         )}
       </>
