@@ -10,19 +10,31 @@ class CurrencyOptions extends Component {
       isCurrenyModalOpen: false,
     };
     this.toggleCurrencyModal = this.toggleCurrencyModal.bind(this);
+    this.closeCurrencyModal = this.closeCurrencyModal.bind(this);
   }
 
   toggleCurrencyModal() {
-    console.log("Clicked");
     this.setState((prevState) => ({
       isCurrenyModalOpen: !prevState.isCurrenyModalOpen,
     }));
   }
 
+  closeCurrencyModal() {
+    this.setState({
+      isCurrenyModalOpen: false,
+    });
+  }
+
   render() {
     return (
       <>
-        <div className="currency-container" onClick={this.toggleCurrencyModal}>
+        <div
+          className="currency-container"
+          onClick={(e) => {
+            e.stopPropagation();
+            this.toggleCurrencyModal();
+          }}
+        >
           <p className="currency-icon">{this.props.selectedCurrency.symbol}</p>
           <p className="caret-icon">
             <i
@@ -35,11 +47,18 @@ class CurrencyOptions extends Component {
             ></i>
           </p>
         </div>
-        {/* {this.state.isCurrenyModalOpen ? <CurrencyOptionsModal /> : <></>} */}
-        <CurrencyOptionsModal
-          showOptions={this.state.isCurrenyModalOpen}
-          toggleModal={this.toggleCurrencyModal}
-        />
+        <div
+          className={
+            this.state.isCurrenyModalOpen ? "currency-overlay" : "hidden"
+          }
+          onClick={this.toggleCurrencyModal}
+        >
+          <CurrencyOptionsModal
+            showOptions={this.state.isCurrenyModalOpen}
+            toggleModal={this.toggleCurrencyModal}
+            closeModal={this.closeCurrencyModal}
+          />
+        </div>
       </>
     );
   }
