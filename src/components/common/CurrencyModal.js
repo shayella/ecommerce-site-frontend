@@ -13,14 +13,20 @@ class CurrencyOptionsModal extends Component {
   }
 
   render() {
+    const selectedCurrency = this.props.selectedCurrency;
     const currencies = this.props.currencies.items.map((currency, i) => {
       return (
         <p
           key={i}
-          className="currency"
-          onClick={() => {
+          className={
+            currency.label === selectedCurrency.label
+              ? "currency selected-currency"
+              : "currency"
+          }
+          onClick={(e) => {
             this.props.changeSelectedCurrency(currency);
-            this.props.toggleModal();
+            e.stopPropagation();
+            this.props.closeModal();
           }}
         >
           {currency.symbol} {currency.label}
@@ -39,10 +45,12 @@ class CurrencyOptionsModal extends Component {
 CurrencyOptionsModal.propTypes = {
   fetchAllCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.object,
+  selectedCurrency: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.currencies,
+  selectedCurrency: state.currencies.selectedCurrency,
 });
 
 export default connect(mapStateToProps, {
