@@ -25,7 +25,11 @@ class ProductImagePreviewer extends Component {
               <img
                 key={i}
                 src={image}
-                className="image-thumbnail"
+                className={
+                  this.state.selectedImage === image
+                    ? "image-thumbnail selected-thumbnail"
+                    : "image-thumbnail"
+                }
                 onClick={() => {
                   this.setState({ selectedImage: image });
                 }}
