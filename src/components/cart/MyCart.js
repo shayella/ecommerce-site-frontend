@@ -22,7 +22,7 @@ class MyCart extends Component {
       totalAmount = totalAmount + item.count * price.amount;
     });
 
-    this.setState({ qty: totalItems, total: totalAmount });
+    this.setState({ qty: totalItems, total: totalAmount.toFixed(2) });
   }
 
   componentDidMount() {
@@ -45,12 +45,17 @@ class MyCart extends Component {
 
         {this.props.cart &&
           this.props.cart.items.map((item) => {
-            return <CartItemFullView key={item.id} product={item} />;
+            return (
+              <CartItemFullView
+                key={item.id + new Date().toDateString()}
+                product={item}
+              />
+            );
           })}
 
         {this.props.cart && this.props.cart.items.length <= 0 ? (
           <p className="total-value">
-            Bag is empty. There not products in the cart
+            Bag is empty. There no products in the cart yet
           </p>
         ) : (
           <div className="totals">
