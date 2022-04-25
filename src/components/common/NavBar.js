@@ -16,25 +16,29 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div className="nav-bar">
-        <div>
-          {this.props.categories.items.length > 0 &&
-            this.props.categories.items.map((category, i) => {
-              return (
-                <MyNavBarLink
-                  key={category.name}
-                  name={category.name}
-                  isSelected={
-                    this.props.categories.selectedCategory === category.name
-                  }
-                />
-              );
-            })}
-        </div>
-        <Logo />
-        <div className="flex">
-          <CurrencyOptions />
-          <CartNav />
+      <div className="nav-bar-wrapper">
+        <div className="nav-bar">
+          <div className="nav-bar-content">
+            <div>
+              {this.props.categories.items.length > 0 &&
+                this.props.categories.items.map((category, i) => {
+                  return (
+                    <MyNavBarLink
+                      key={category.name}
+                      name={category.name}
+                      isSelected={
+                        this.props.categories.selectedCategory === category.name
+                      }
+                    />
+                  );
+                })}
+            </div>
+            <Logo />
+            <div className="flex">
+              <CurrencyOptions />
+              <CartNav />
+            </div>
+          </div>
         </div>
       </div>
     );
