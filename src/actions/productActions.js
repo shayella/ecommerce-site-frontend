@@ -11,6 +11,14 @@ export const fetchProductByCategory = (categoryName) => (dispatch) => {
           id
           name
           brand
+          attributes {
+            name
+            type
+            items {
+              displayValue
+              value
+            }
+          }
           prices {
             currency {
               symbol
