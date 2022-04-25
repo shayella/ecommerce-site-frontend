@@ -4,17 +4,35 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { addProductToCart } from "../../actions/cartActions";
 class ProductInfo extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.checkUnselectedProductAttributes =
+      this.checkUnselectedProductAttributes.bind(this);
+  }
+  checkUnselectedProductAttributes(allAttributes, selectedAttributes) {
+    let unselectedAttributes = [];
+    unselectedAttributes = allAttributes.filter(
+      (attribute) => !Object.keys(selectedAttributes).includes(attribute.name)
+    );
+
+    let unselectedAttributesStr = "";
+    for (let item of unselectedAttributes) {
+      unselectedAttributesStr += "- " + item.name + "\n ";
+    }
+
+    alert(
+      `Please select the \n ${unselectedAttributesStr} attribute(s) of the product before adding to cart.`
+    );
+  }
   render() {
     let product = this.props.info;
     let productPrice = product.prices.filter(
       (price) => price.currency.symbol === this.props.selectedCurrency.symbol
     )[0];
-
     let productHasAttributes = product.attributes.length > 0;
 
     return (
-      <div>
+      <div className="product-info">
         <p className="brand-name">{product.brand}</p>
         <p className="product-name">{product.name}</p>
 
@@ -35,7 +53,11 @@ class ProductInfo extends Component {
                           ) &&
                           product.selectedAttributes[attribute.name] ===
                             item.value
-                            ? "product-attribute selected-attribute"
+                            ? attribute.type === "swatch"
+                              ? "product-attribute swatch-type selected-attribute"
+                              : "product-attribute selected-attribute"
+                            : attribute.type === "swatch"
+                            ? "product-attribute swatch-type"
                             : "product-attribute"
                         }
                         onClick={() => {
@@ -69,8 +91,27 @@ class ProductInfo extends Component {
         </p>
         <Link
           to="/cart"
-          onClick={() => {
-            this.props.addProductToCart({ ...product, count: 1 });
+          onClick={(e) => {
+            if (!product.inStock) {
+              e.preventDefault();
+              alert("Sorry, this product is out of stock.");
+            } else if (productHasAttributes) {
+              if (!Object.keys(product).includes("selectedAttributes")) {
+                e.preventDefault();
+                this.checkUnselectedProductAttributes(product.attributes, {});
+              } else if (
+                product.attributes.length !==
+                Object.keys(product.selectedAttributes).length
+              ) {
+                e.preventDefault();
+                this.checkUnselectedProductAttributes(
+                  product.attributes,
+                  product.selectedAttributes
+                );
+              } else {
+                this.props.addProductToCart({ ...product, count: 1 });
+              }
+            }
           }}
           className="add-btn"
         >
