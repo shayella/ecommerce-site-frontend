@@ -23,8 +23,15 @@ class CartItemFullView extends Component {
     let productPrice = prices.filter(
       (price) => price.currency.symbol === this.props.selectedCurrency.symbol
     )[0];
+
     return (
-      <div className="cart-item-lg">
+      <div
+        className={
+          this.props.isMiniCart && this.props.isMiniCart
+            ? "cart-item-lg mini-cart-item"
+            : "cart-item-lg"
+        }
+      >
         <div className="cart-item-inner">
           <div className="item-info">
             <p className="cart-item-brand">{brand}</p>
@@ -34,7 +41,7 @@ class CartItemFullView extends Component {
             </p>
 
             {/* Make a reusable attributes component */}
-            {attributes.length > 0 ? (
+            {attributes && attributes.length > 0 ? (
               attributes.map((attribute) => {
                 return (
                   <>
@@ -45,12 +52,18 @@ class CartItemFullView extends Component {
                           <button
                             key={id + i}
                             className={
-                              selectedAttributes &&
-                              Object.keys(selectedAttributes).includes(
+                              this.props.product.selectedAttributes &&
+                              Object.keys(
+                                this.props.product.selectedAttributes
+                              ).includes(attribute.name) &&
+                              this.props.product.selectedAttributes[
                                 attribute.name
-                              ) &&
-                              selectedAttributes[attribute.name] === item.value
-                                ? "product-attribute selected-attribute"
+                              ] === item.value
+                                ? attribute.type === "swatch"
+                                  ? "product-attribute swatch-type selected-attribute"
+                                  : "product-attribute selected-attribute"
+                                : attribute.type === "swatch"
+                                ? "product-attribute swatch-type"
                                 : "product-attribute"
                             }
                             style={
@@ -95,7 +108,13 @@ class CartItemFullView extends Component {
             </button>
           </div>
 
-          <ImageSlider gallery={gallery} />
+          {/* Image Slider Section */}
+
+          {this.props.isMiniCart ? (
+            <img className="cart-item-image" alt="" src={gallery[0]} />
+          ) : (
+            <ImageSlider gallery={gallery} />
+          )}
         </div>
       </div>
     );
