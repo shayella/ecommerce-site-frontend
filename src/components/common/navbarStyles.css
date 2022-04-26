@@ -28,7 +28,7 @@
     align-items: baseline;
     justify-content: space-between;
     margin: 0 auto;
-    padding-top: 8px;
+    padding-top: 22px;
 }
 
 .link{
@@ -107,14 +107,14 @@
 
 .currency{
     font-family: 'Raleway';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 100%;
-text-align: right;
-color: #1D1F22;
-padding-right: 6px;
-cursor: pointer;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 100%;
+    text-align: right;
+    color: #1D1F22;
+    padding-right: 6px;
+    cursor: pointer;
 }
 
 .selected-currency{
@@ -149,7 +149,7 @@ cursor: pointer;
     height: 20px;
     border-radius: 50%;
     position: absolute;
-    top: 8px;
+    top: -8px;
     right: -10px;
     background-color: #1D1F22;
     color: #fff;

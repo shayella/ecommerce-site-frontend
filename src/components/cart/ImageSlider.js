@@ -51,9 +51,10 @@ class ImageSlider extends Component {
   }
 
   render() {
+    const { isMiniCart } = this.props;
     return (
       <div className="image-slider">
-        {this.state.gallery.length > 1 ? (
+        {this.state.gallery.length > 1 && !isMiniCart ? (
           <div className="image-slider-btns">
             <button className="prev-btn" onClick={this.showPrevImage}>
               &lt;

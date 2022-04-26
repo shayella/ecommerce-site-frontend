@@ -56,7 +56,6 @@ class CartNav extends Component {
           className="shopping-cart-container"
           onClick={this.toggleShowCartOverlay}
         >
-          {/* <i className="fa fa-shopping-cart" aria-hidden="true"></i> */}
           <EmptyCartImage size={20} color="black" />
           <Badge value={this.state.qty} />
         </div>

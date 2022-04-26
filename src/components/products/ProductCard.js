@@ -48,7 +48,6 @@ class ProductCard extends Component {
                 }}
               >
                 <EmptyCartImage size={24} color="white" />
-                {/* <i className="fa fa-shopping-cart" aria-hidden="true"></i> */}
               </button>
             ) : (
               <div className="no-stock">

@@ -35,8 +35,10 @@ class CurrencyOptions extends Component {
             this.toggleCurrencyModal();
           }}
         >
-          <p className="currency-icon">{this.props.selectedCurrency.symbol}</p>
-          <p className="caret-icon">
+          <span className="currency-icon">
+            {this.props.selectedCurrency.symbol}
+          </span>
+          <span className="caret-icon">
             <i
               className={
                 this.state.isCurrenyModalOpen
@@ -45,7 +47,7 @@ class CurrencyOptions extends Component {
               }
               aria-hidden="true"
             ></i>
-          </p>
+          </span>
         </div>
         <div
           className={

@@ -43,9 +43,7 @@ class CartOverlay extends Component {
       <>
         <div
           className={this.props.showCart ? "cart-overlay" : "hidden"}
-          onClick={(e) => {
-            this.props.hideCart();
-          }}
+          onClick={this.props.hideCart}
         >
           <div
             className="mini-cart"

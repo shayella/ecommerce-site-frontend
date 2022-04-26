@@ -8,7 +8,7 @@ class PageNotFound extends Component {
         <h4>404 Error</h4>
         <h1>Opps! Page Not Found </h1>
         <Link className="back-link" to="/">
-          Go back home :)
+          Go back home
         </Link>
       </div>
     );

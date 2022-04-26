@@ -6,11 +6,19 @@ import {
   increaseProductInCart,
   decreaseProductInCart,
 } from "../../actions/cartActions";
+import CartItemAttributes from "./CartItemAttributes";
 
 class CartItemFullView extends Component {
   render() {
-    const { brand, name, gallery, prices, attributes, count } =
-      this.props.product;
+    const {
+      brand,
+      name,
+      gallery,
+      prices,
+      attributes,
+      count,
+      selectedAttributes,
+    } = this.props.product;
 
     let productPrice = prices.filter(
       (price) => price.currency.symbol === this.props.selectedCurrency.symbol
@@ -25,6 +33,7 @@ class CartItemFullView extends Component {
         }
       >
         <div className="cart-item-inner">
+          {/* Product Brand, Name, Price */}
           <div className="item-info">
             <p className="cart-item-brand">{brand}</p>
             <p className="cart-item-name">{name}</p>
@@ -32,64 +41,15 @@ class CartItemFullView extends Component {
               {productPrice.currency.symbol} {productPrice.amount}
             </p>
 
-            {/* Make a reusable attributes component */}
-            {attributes && attributes.length > 0 ? (
-              attributes.map((attribute, i) => {
-                return (
-                  <Fragment
-                    key={
-                      this.props.isMiniCart
-                        ? "miniOutAttr" + i + attribute.name
-                        : "fullOutAttr" + i + attribute.name
-                    }
-                  >
-                    <p className="product-label">{attribute.name}</p>
-                    <div className="cart-item-attribute-container">
-                      {attribute.items.map((item, i) => {
-                        return (
-                          <button
-                            key={
-                              this.props.isMiniCart
-                                ? "miniAttr" + i + item.id
-                                : "fullAttr" + i + item.id
-                            }
-                            className={
-                              this.props.product.selectedAttributes &&
-                              Object.keys(
-                                this.props.product.selectedAttributes
-                              ).includes(attribute.name) &&
-                              this.props.product.selectedAttributes[
-                                attribute.name
-                              ] === item.value
-                                ? attribute.type === "swatch"
-                                  ? "product-attribute swatch-type selected-attribute"
-                                  : "product-attribute selected-attribute"
-                                : attribute.type === "swatch"
-                                ? "product-attribute swatch-type"
-                                : "product-attribute"
-                            }
-                            style={
-                              attribute.type === "swatch"
-                                ? {
-                                    backgroundColor: item.value,
-                                    color: item.value,
-                                  }
-                                : {}
-                            }
-                          >
-                            {attribute.type === "swatch" ? "" : item.value}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </Fragment>
-                );
-              })
-            ) : (
-              <></>
-            )}
+            {/* Attributes */}
+            <CartItemAttributes
+              attributes={attributes}
+              isMiniCart={this.props.isMiniCart}
+              selectedAttributes={selectedAttributes && selectedAttributes}
+            />
           </div>
 
+          {/* Counters and Count */}
           <div className="cart-counters">
             <button
               className="cart-item-counter"
@@ -111,12 +71,7 @@ class CartItemFullView extends Component {
           </div>
 
           {/* Image Slider Section */}
-
-          {this.props.isMiniCart ? (
-            <img className="cart-item-image" alt="" src={gallery[0]} />
-          ) : (
-            <ImageSlider gallery={gallery} />
-          )}
+          <ImageSlider gallery={gallery} isMiniCart={this.props.isMiniCart} />
         </div>
       </div>
     );
