@@ -2,6 +2,7 @@
     width: 60%;
     display: flex;
     flex-direction: row;
+    padding-top: 50px;
     /* background-color: red; */
 }
 
@@ -14,6 +15,11 @@
     width:  87px;
     margin-bottom: 28px;
     cursor: pointer;
+}
+
+.selected-thumbnail{
+    box-shadow: 0px 4px 35px rgb(168 172 176 / 50%);
+
 }
 
 .brand-name{
@@ -38,7 +44,11 @@
     margin-top: 24px;
 }
 
-.product-label{
+.product-info{
+    padding-top: 50px;
+}
+
+.product-label,.mini-cart-item .product-label{
     margin-top: 40px;
     margin-bottom: 10px;
     font-family: 'Roboto Condensed';
@@ -47,7 +57,14 @@
     font-size: 18px;
     line-height: 18px;
     color: #1D1F22;
+}
 
+.mini-cart-item .product-label{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top:8px;
+    margin-bottom: 0px;
 }
 
 .description, .description p,.description ul li {
@@ -69,13 +86,13 @@
 }
  
 .product-price, .attribute-title{
-font-family: 'Raleway';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 18px;
-color: #1D1F22;
-margin-top: 16px;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 18px;
+    color: #1D1F22;
+    margin-top: 16px;
 }
 
 .add-btn{
@@ -95,10 +112,6 @@ margin-top: 16px;
     text-decoration: none;
     text-transform: uppercase;
 }
-
-/* .image-thumbnail:hover{
-    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.69);
-} */
 
 .selected-image-container{
     padding-left: 30px;
@@ -126,7 +139,6 @@ margin-top: 16px;
     font-size: 16px;
     line-height: 18px;
     text-align: center;
-    padding: 14px 29px;
     letter-spacing: 0.05em;
     color: #292929;
     background-color: white;
@@ -135,7 +147,36 @@ margin-top: 16px;
     min-height: 45px;
 }
 
-.selected-attribute{
+.mini-cart-item .product-attribute{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    min-width: 24px;
+    min-height: 24px;
+    margin-top: 8px;
+}
+
+
+.swatch-type{
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+}
+
+.mini-cart-item .swatch-type{
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0;
+}
+
+.product-attribute.selected-attribute{
+    background-color: #1D1F22;
+    color: #fff;
+}
+
+.swatch-type.selected-attribute{
     border: solid #5ECE7B 4px;
 }
 

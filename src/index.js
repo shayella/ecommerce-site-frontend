@@ -11,6 +11,7 @@ import reportWebVitals from "./reportWebVitals";
 import ProductDetails from "./components/products/ProductDetails";
 import MyCart from "./components/cart/MyCart";
 import PageNotFound from "./components/errors/404";
+import CheckOut from "./components/cart/Checkout";
 
 const localGraphQL = "http://localhost:4000";
 export const client = new ApolloClient({
@@ -28,8 +29,8 @@ ReactDOM.render(
             <Route exact path="" element={<ProductList />} />
             <Route exact path="product/:id" element={<ProductDetails />} />
             <Route exact path="cart" element={<MyCart />} />
-            <Route exact path="checkout" element={<MyCart />} />
-            <Route path="*" exact element={<PageNotFound />} />
+            <Route exact path="checkout" element={<CheckOut />} />
+            <Route exact path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
       </Provider>

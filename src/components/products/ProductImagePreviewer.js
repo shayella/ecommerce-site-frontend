@@ -23,7 +23,7 @@ class ProductImagePreviewer extends Component {
           {this.state.allImages.map((image, i) => {
             return (
               <img
-                key={i}
+                key={image + i}
                 src={image}
                 className={
                   this.state.selectedImage === image

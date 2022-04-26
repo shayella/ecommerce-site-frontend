@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -37,15 +37,15 @@ class ProductInfo extends Component {
         <p className="product-name">{product.name}</p>
 
         {productHasAttributes ? (
-          product.attributes.map((attribute) => {
+          product.attributes.map((attribute, i) => {
             return (
-              <>
+              <Fragment key={product.id + attribute.name + i}>
                 <p className="product-label">{attribute.name}</p>
                 <div className="product-attribute-container">
                   {attribute.items.map((item, i) => {
                     return (
                       <button
-                        key={product.id + i}
+                        key={"attr" + i}
                         className={
                           product.selectedAttributes &&
                           Object.keys(product.selectedAttributes).includes(
@@ -77,7 +77,7 @@ class ProductInfo extends Component {
                     );
                   })}
                 </div>
-              </>
+              </Fragment>
             );
           })
         ) : (

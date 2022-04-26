@@ -2,7 +2,6 @@ import {
   ADD_PRODUCT_TO_CART,
   DECREASE_PRODUCT_COUNT_IN_CART,
   INCREASE_PRODUCT_COUNT_IN_CART,
-  REMOVE_PRODUCT_FROM_CART,
 } from "../actions/types";
 
 const initialState = {
@@ -30,19 +29,28 @@ const cartReducer = (state = initialState, action) => {
             ? { ...item, count: item.count + 1 }
             : item
         );
+        alert(
+          action.payload.brand +
+            " " +
+            action.payload.name +
+            " has been added to cart successfully."
+        );
         return { items: [...newItems] };
       } else {
+        alert(
+          action.payload.brand +
+            " " +
+            action.payload.name +
+            " has been added to cart"
+        );
+
         return { items: [...state.items, action.payload] };
       }
-
-    // case REMOVE_PRODUCT_FROM_CART:
-    //   return {
-    //     ...state,
-    //   };
-
     case INCREASE_PRODUCT_COUNT_IN_CART:
       let newItems = state.items.map((item) =>
-        item.id === action.payload.id
+        item.id === action.payload.id &&
+        JSON.stringify(item.selectedAttributes) ==
+          JSON.stringify(action.payload.selectedAttributes)
           ? { ...item, count: item.count + 1 }
           : item
       );
@@ -50,24 +58,23 @@ const cartReducer = (state = initialState, action) => {
 
     case DECREASE_PRODUCT_COUNT_IN_CART:
       if (action.payload.count <= 1) {
-        let newItems = state.items.filter(
-          (item) =>
-            item.id !== action.payload.id &&
-            Object.keys(item.selectedAttributes).every(
-              (key) =>
-                item.selectedAttributes[key] !==
-                action.payload.selectedAttributes[key]
-            )
-        );
+        let newItems = state.items.filter((item) => {
+          if (item.id !== action.payload.id) {
+            return item;
+          } else if (
+            item.id === action.payload.id &&
+            JSON.stringify(item.selectedAttributes) !==
+              JSON.stringify(action.payload.selectedAttributes)
+          ) {
+            return item;
+          }
+        });
         return { items: [...newItems] };
       } else {
         let newItems = state.items.map((item) =>
           item.id === action.payload.id &&
-          Object.keys(item.selectedAttributes).every(
-            (key) =>
-              item.selectedAttributes[key] ===
-              action.payload.selectedAttributes[key]
-          )
+          JSON.stringify(item.selectedAttributes) ===
+            JSON.stringify(action.payload.selectedAttributes)
             ? { ...item, count: item.count - 1 }
             : item
         );
