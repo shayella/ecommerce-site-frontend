@@ -44,12 +44,9 @@ class MyCart extends Component {
         <h1 className="cart-heading">Cart</h1>
 
         {this.props.cart &&
-          this.props.cart.items.map((item) => {
+          this.props.cart.items.map((item, i) => {
             return (
-              <CartItemFullView
-                key={item.id + new Date().toDateString()}
-                product={item}
-              />
+              <CartItemFullView key={"fullCart" + item.id + i} product={item} />
             );
           })}
 
