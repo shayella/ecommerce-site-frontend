@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { addProductToCart } from "../../actions/cartActions";
+import PurifiedProductDescription from "./ProductDescriptionPurify";
 class ProductInfo extends Component {
   constructor(props) {
     super(props);
@@ -117,10 +118,9 @@ class ProductInfo extends Component {
         >
           Add to Cart
         </Link>
-        <div
-          className="description"
-          dangerouslySetInnerHTML={{ __html: product.description }}
-        ></div>
+
+        {/* First sanitize and purify the descripion html, to prevent CSS (Cross site scripting) threats. */}
+        <PurifiedProductDescription description={product.description} />
       </div>
     );
   }
