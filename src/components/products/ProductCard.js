@@ -22,7 +22,6 @@ class ProductCard extends Component {
     return (
       <Link
         to={`/product/${currentProduct.id}`}
-        key={currentProduct.id}
         className={
           currentProduct.inStock
             ? "product-card"
