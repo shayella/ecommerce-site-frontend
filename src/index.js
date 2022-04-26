@@ -24,18 +24,16 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Router>
-            <NavBar></NavBar>
-            <Routes>
-              <Route exact path="" element={<ProductList />} />
-              <Route exact path="product/:id" element={<ProductDetails />} />
-              <Route exact path="cart" element={<MyCart />} />
-              <Route exact path="checkout" element={<CheckOut />} />
-              <Route exact path="*" element={<PageNotFound />} />
-            </Routes>
-          </Router>
-        </PersistGate>
+        <Router>
+          <NavBar></NavBar>
+          <Routes>
+            <Route exact path="" element={<ProductList />} />
+            <Route exact path="product/:id" element={<ProductDetails />} />
+            <Route exact path="cart" element={<MyCart />} />
+            <Route exact path="checkout" element={<CheckOut />} />
+            <Route exact path="*" element={<PageNotFound />} />
+          </Routes>
+        </Router>
       </Provider>
     </ApolloProvider>
   </React.StrictMode>,

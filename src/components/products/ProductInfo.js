@@ -112,6 +112,8 @@ class ProductInfo extends Component {
               } else {
                 this.props.addProductToCart({ ...product, count: 1 });
               }
+            } else {
+              this.props.addProductToCart({ ...product, count: 1 });
             }
           }}
           className="add-btn"

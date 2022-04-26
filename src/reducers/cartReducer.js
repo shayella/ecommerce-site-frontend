@@ -11,16 +11,22 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PRODUCT_TO_CART:
+      console.log(
+        "EXISTS ",
+        state.items.some(
+          (item) =>
+            item.id === action.payload.id &&
+            JSON.stringify(item.selectedAttributes) ===
+              JSON.stringify(action.payload.selectedAttributes)
+        )
+      );
       // Check if product exists, and the selected attributes are the same,
       if (
         state.items.some(
-          (e) =>
-            e.id === action.payload.id &&
-            Object.keys(e.selectedAttributes).every(
-              (key) =>
-                e.selectedAttributes[key] ===
-                action.payload.selectedAttributes[key]
-            )
+          (item) =>
+            item.id === action.payload.id &&
+            JSON.stringify(item.selectedAttributes) ===
+              JSON.stringify(action.payload.selectedAttributes)
         )
       ) {
         //  If product already exists increase the count of the product
