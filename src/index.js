@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import store, { persistor } from "./store";
-import { PersistGate } from "redux-persist/integration/react";
+import store from "./store";
 import NavBar from "./components/common/NavBar";
 import ProductList from "./components/products/ProductList";
 import reportWebVitals from "./reportWebVitals";
@@ -23,18 +22,16 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Router>
-            <NavBar></NavBar>
-            <Routes>
-              <Route exact path="" element={<ProductList />} />
-              <Route exact path="product/:id" element={<ProductDetails />} />
-              <Route exact path="cart" element={<MyCart />} />
-              <Route exact path="checkout" element={<CheckOut />} />
-              <Route exact path="*" element={<PageNotFound />} />
-            </Routes>
-          </Router>
-        </PersistGate>
+        <Router>
+          <NavBar></NavBar>
+          <Routes>
+            <Route exact path="" element={<ProductList />} />
+            <Route exact path="product/:id" element={<ProductDetails />} />
+            <Route exact path="cart" element={<MyCart />} />
+            <Route exact path="checkout" element={<CheckOut />} />
+            <Route exact path="*" element={<PageNotFound />} />
+          </Routes>
+        </Router>
       </Provider>
     </ApolloProvider>
   </React.StrictMode>,
