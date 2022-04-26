@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import CartItemFullView from "./CartItemLarge";
 import "./cart.css";
 class MyCart extends Component {
@@ -58,7 +59,11 @@ class MyCart extends Component {
           <div className="totals">
             <hr />
             <p className="total-label">
-              Tax: <span className="total-value"></span>
+              Tax:{" "}
+              <span className="total-value" title="Tax is 5% of total price">
+                {this.props.selectedCurrency.symbol}
+                {(this.state.total * 0.05).toFixed(2)}
+              </span>
             </p>
             <p className="total-label">
               Qty: <span className="total-value">{this.state.qty}</span>
@@ -70,6 +75,10 @@ class MyCart extends Component {
                 {this.state.total}
               </span>
             </p>
+
+            <Link className="order-btn" to="/checkout">
+              Order
+            </Link>
           </div>
         )}
       </div>
