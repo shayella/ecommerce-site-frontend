@@ -60,10 +60,10 @@ class CartOverlay extends Component {
                 </p>
 
                 {this.props.cart &&
-                  this.props.cart.items.map((item) => {
+                  this.props.cart.items.map((item, i) => {
                     return (
                       <CartItemLarge
-                        key={item.id}
+                        key={"mini" + item.id + i}
                         product={item}
                         isMiniCart={true}
                       />
