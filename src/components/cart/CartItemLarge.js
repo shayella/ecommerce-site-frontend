@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import ImageSlider from "./ImageSlider";
@@ -42,15 +42,25 @@ class CartItemFullView extends Component {
 
             {/* Make a reusable attributes component */}
             {attributes && attributes.length > 0 ? (
-              attributes.map((attribute) => {
+              attributes.map((attribute, i) => {
                 return (
-                  <>
+                  <Fragment
+                    key={
+                      this.props.isMiniCart
+                        ? "miniOutAttr" + i + attribute.name
+                        : "fullOutAttr" + i + attribute.name
+                    }
+                  >
                     <p className="product-label">{attribute.name}</p>
                     <div className="cart-item-attribute-container">
                       {attribute.items.map((item, i) => {
                         return (
                           <button
-                            key={id + i}
+                            key={
+                              this.props.isMiniCart
+                                ? "miniAttr" + i + item.id
+                                : "fullAttr" + i + item.id
+                            }
                             className={
                               this.props.product.selectedAttributes &&
                               Object.keys(
@@ -80,7 +90,7 @@ class CartItemFullView extends Component {
                         );
                       })}
                     </div>
-                  </>
+                  </Fragment>
                 );
               })
             ) : (
