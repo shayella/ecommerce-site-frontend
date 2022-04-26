@@ -1,4 +1,4 @@
-# Ecommerce App Junior React Developer Test (by Sheilla Mirembe)
+# Junior React Developer Test - ecommerce app (by Sheilla Mirembe)
 
 Hello there! :)  Thanks for taking the time to review my test project.
 
