@@ -9,16 +9,8 @@ import {
 
 class CartItemFullView extends Component {
   render() {
-    const {
-      id,
-      brand,
-      name,
-      gallery,
-      prices,
-      attributes,
-      selectedAttributes,
-      count,
-    } = this.props.product;
+    const { brand, name, gallery, prices, attributes, count } =
+      this.props.product;
 
     let productPrice = prices.filter(
       (price) => price.currency.symbol === this.props.selectedCurrency.symbol
