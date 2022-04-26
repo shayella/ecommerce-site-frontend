@@ -96,7 +96,7 @@ class ProductDetails extends Component {
             <ProductInfo
               info={this.state.product}
               selectAttributes={this.selectAttributes}
-              key={this.state.product}
+              key={this.state.product.id}
             ></ProductInfo>
           </div>
         ) : (
