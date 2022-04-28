@@ -90,21 +90,17 @@ class ProductInfo extends Component {
           {productPrice.currency.symbol + " "}
           {productPrice.amount}
         </p>
-        <Link
-          to="/cart"
-          onClick={(e) => {
+        <button
+          onClick={() => {
             if (!product.inStock) {
-              e.preventDefault();
               alert("Sorry, this product is out of stock.");
             } else if (productHasAttributes) {
               if (!Object.keys(product).includes("selectedAttributes")) {
-                e.preventDefault();
                 this.checkUnselectedProductAttributes(product.attributes, {});
               } else if (
                 product.attributes.length !==
                 Object.keys(product.selectedAttributes).length
               ) {
-                e.preventDefault();
                 this.checkUnselectedProductAttributes(
                   product.attributes,
                   product.selectedAttributes
@@ -119,7 +115,7 @@ class ProductInfo extends Component {
           className="add-btn"
         >
           Add to Cart
-        </Link>
+        </button>
 
         {/* First sanitize and purify the descripion html, to prevent CSS (Cross site scripting) threats. */}
         <PurifiedProductDescription description={product.description} />
