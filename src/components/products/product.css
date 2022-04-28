@@ -84,6 +84,8 @@
     display: flex;
     align-self: center;
     margin: 0 auto;
+    object-fit: contain;
+    object-position:center;
 
 }
 
@@ -182,6 +184,7 @@
 @media only screen and (min-width: 1434px){
     .product-card{
         margin-right: 45px;
+        margin-bottom: 80px;
     }
 
     .product-card .product-image{
