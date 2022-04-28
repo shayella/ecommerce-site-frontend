@@ -77,7 +77,7 @@
     height: auto;
     position: absolute;
     top: 68px;
-    right:120px;
+    right:40px;
     box-shadow: 0px 2px 10px rgba(168, 172, 176, 0.39);
     /* padding: 3px 0; */
 }
@@ -93,11 +93,14 @@
   /* Track */
   .image-thumbnail-container ::-webkit-scrollbar-track, .mini-cart::-webkit-scrollbar-track {
     background: #f1f1f1;
+    background-clip: content-box; 
   }
   
   /* Handle */
   .image-thumbnail-container::-webkit-scrollbar-thumb, .mini-cart::-webkit-scrollbar-thumb {
-    background: #888;
+    background: #d1d1d1;
+    height: 60px;
+
   }
   
   /* Handle on hover */
