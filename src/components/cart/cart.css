@@ -110,7 +110,8 @@
 
 .mini-cart .cart-item-image{
     width: 121px;
-    height: 190px;
+    height: auto;
+    /* height: 190px; */
 }
 
 
@@ -190,6 +191,15 @@
     left: 0;
     background: rgba(57, 55, 72, 0.22);
     z-index: 100;
+    
+}
+
+.cart-overlay-container, .currency-overlay-container{
+    width: 88%;
+    max-width: 1280px;
+    height: 100%;
+    position: relative;
+    margin:0 auto;
 }
 
 .currency-overlay{
@@ -205,7 +215,7 @@
     max-height: 45vh;
     padding: 32px 16px;
     margin-top: 1px;
-    right: 70px;
+    right: -10px;
     background-color: white;
     overflow-y: auto;
 }
