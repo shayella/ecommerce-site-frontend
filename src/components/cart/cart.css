@@ -103,7 +103,8 @@
 
 .cart-item-image{
     width: 200px ;
-    height: 288px;
+    height: auto;
+    /* height: 288px; */
     align-self: center;
 }
 
@@ -206,7 +207,7 @@
     margin-top: 1px;
     right: 70px;
     background-color: white;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 
