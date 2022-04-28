@@ -45,60 +45,62 @@ class CartOverlay extends Component {
           className={this.props.showCart ? "cart-overlay" : "hidden"}
           onClick={this.props.hideCart}
         >
-          <div
-            className="mini-cart"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            {this.state.qty > 0 ? (
-              <>
-                <p className="mini-cart-heading">
-                  My Bag, {this.state.qty} item{this.state.qty > 1 ? "s" : ""}
-                </p>
-
-                {this.props.cart &&
-                  this.props.cart.items.map((item, i) => {
-                    return (
-                      <CartItemLarge
-                        key={"mini" + item.id + i}
-                        product={item}
-                        isMiniCart={true}
-                      />
-                    );
-                  })}
-                <div className="mini-cart-totals">
-                  <p className="mini-cart-total-value">Total:</p>
-                  <p className="mini-cart-total-value">
-                    {this.props.selectedCurrency.symbol}
-                    {this.state.total}
+          <div className="cart-overlay-container">
+            <div
+              className="mini-cart"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              {this.state.qty > 0 ? (
+                <>
+                  <p className="mini-cart-heading">
+                    My Bag, {this.state.qty} item{this.state.qty > 1 ? "s" : ""}
                   </p>
-                </div>
 
-                <div className="mini-cart-btns">
-                  <Link
-                    to="/cart"
-                    onClick={() => {
-                      this.props.toggleCart();
-                    }}
-                    className="cart-btn view-cart-btn"
-                  >
-                    View Bag
-                  </Link>
-                  <Link
-                    to="/checkout"
-                    onClick={() => {
-                      this.props.toggleCart();
-                    }}
-                    className="cart-btn check-out-btn"
-                  >
-                    Check out
-                  </Link>
-                </div>
-              </>
-            ) : (
-              <p className="empty-cart">You have no items in the cart yet.</p>
-            )}
+                  {this.props.cart &&
+                    this.props.cart.items.map((item, i) => {
+                      return (
+                        <CartItemLarge
+                          key={"mini" + item.id + i}
+                          product={item}
+                          isMiniCart={true}
+                        />
+                      );
+                    })}
+                  <div className="mini-cart-totals">
+                    <p className="mini-cart-total-value">Total:</p>
+                    <p className="mini-cart-total-value">
+                      {this.props.selectedCurrency.symbol}
+                      {this.state.total}
+                    </p>
+                  </div>
+
+                  <div className="mini-cart-btns">
+                    <Link
+                      to="/cart"
+                      onClick={() => {
+                        this.props.toggleCart();
+                      }}
+                      className="cart-btn view-cart-btn"
+                    >
+                      View Bag
+                    </Link>
+                    <Link
+                      to="/checkout"
+                      onClick={() => {
+                        this.props.toggleCart();
+                      }}
+                      className="cart-btn check-out-btn"
+                    >
+                      Check out
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <p className="empty-cart">You have no items in the cart yet.</p>
+              )}
+            </div>
           </div>
         </div>
       </>
