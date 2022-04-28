@@ -55,11 +55,13 @@ class CurrencyOptions extends Component {
           }
           onClick={this.toggleCurrencyModal}
         >
-          <CurrencyOptionsModal
-            showOptions={this.state.isCurrenyModalOpen}
-            toggleModal={this.toggleCurrencyModal}
-            closeModal={this.closeCurrencyModal}
-          />
+          <div className="currency-overlay-container">
+            <CurrencyOptionsModal
+              showOptions={this.state.isCurrenyModalOpen}
+              toggleModal={this.toggleCurrencyModal}
+              closeModal={this.closeCurrencyModal}
+            />
+          </div>
         </div>
       </>
     );
