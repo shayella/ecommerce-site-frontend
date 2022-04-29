@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import ImageSlider from "./ImageSlider";
@@ -78,9 +78,11 @@ class CartItemFullView extends Component {
   }
 }
 CartItemFullView.propTypes = {
-  selectedCurrency: PropTypes.object,
+  selectedCurrency: PropTypes.object.isRequired,
   increaseProductInCart: PropTypes.func.isRequired,
   decreaseProductInCart: PropTypes.func.isRequired,
+  isMiniCart: PropTypes.bool.isRequired,
+  product: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

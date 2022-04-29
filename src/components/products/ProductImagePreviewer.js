@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class ProductImagePreviewer extends Component {
   constructor(props) {
@@ -49,5 +50,9 @@ class ProductImagePreviewer extends Component {
     );
   }
 }
+
+ProductImagePreviewer.propTypes = {
+  gallery: PropTypes.array,
+};
 
 export default ProductImagePreviewer;

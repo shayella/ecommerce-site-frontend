@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class ImageSlider extends Component {
   constructor(props) {
@@ -76,5 +77,10 @@ class ImageSlider extends Component {
     );
   }
 }
+
+ImageSlider.propTypes = {
+  gallery: PropTypes.array,
+  isMiniCart: PropTypes.bool.isRequired,
+};
 
 export default ImageSlider;

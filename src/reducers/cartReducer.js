@@ -31,7 +31,9 @@ const cartReducer = (state = initialState, action) => {
       ) {
         //  If product already exists increase the count of the product
         let newItems = state.items.map((item) =>
-          item.id === action.payload.id
+          item.id === action.payload.id &&
+          JSON.stringify(item.selectedAttributes) ===
+            JSON.stringify(action.payload.selectedAttributes)
             ? { ...item, count: item.count + 1 }
             : item
         );
@@ -53,28 +55,27 @@ const cartReducer = (state = initialState, action) => {
         return { items: [...state.items, action.payload] };
       }
     case INCREASE_PRODUCT_COUNT_IN_CART:
-      let newItems = state.items.map((item) =>
-        item.id === action.payload.id &&
-        JSON.stringify(item.selectedAttributes) ==
-          JSON.stringify(action.payload.selectedAttributes)
-          ? { ...item, count: item.count + 1 }
-          : item
-      );
-      return { items: [...newItems] };
+      if (action.payload) {
+        let newItems = state.items.map((item) =>
+          item.id === action.payload.id &&
+          JSON.stringify(item.selectedAttributes) ===
+            JSON.stringify(action.payload.selectedAttributes)
+            ? { ...item, count: item.count + 1 }
+            : item
+        );
+        return { items: [...newItems] };
+      }
+      break;
 
     case DECREASE_PRODUCT_COUNT_IN_CART:
       if (action.payload.count <= 1) {
-        let newItems = state.items.filter((item) => {
-          if (item.id !== action.payload.id) {
-            return item;
-          } else if (
-            item.id === action.payload.id &&
-            JSON.stringify(item.selectedAttributes) !==
-              JSON.stringify(action.payload.selectedAttributes)
-          ) {
-            return item;
-          }
-        });
+        let newItems = state.items.filter(
+          (item) =>
+            item.id !== action.payload.id ||
+            (item.id === action.payload.id &&
+              JSON.stringify(item.selectedAttributes) !==
+                JSON.stringify(action.payload.selectedAttributes))
+        );
         return { items: [...newItems] };
       } else {
         let newItems = state.items.map((item) =>

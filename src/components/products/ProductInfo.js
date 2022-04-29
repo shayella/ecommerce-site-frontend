@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { addProductToCart } from "../../actions/cartActions";
 import PurifiedProductDescription from "./ProductDescriptionPurify";
+
 class ProductInfo extends Component {
   constructor(props) {
     super(props);
     this.checkUnselectedProductAttributes =
       this.checkUnselectedProductAttributes.bind(this);
   }
+
   checkUnselectedProductAttributes(allAttributes, selectedAttributes) {
     let unselectedAttributes = [];
     unselectedAttributes = allAttributes.filter(
@@ -109,7 +110,11 @@ class ProductInfo extends Component {
                 this.props.addProductToCart({ ...product, count: 1 });
               }
             } else {
-              this.props.addProductToCart({ ...product, count: 1 });
+              this.props.addProductToCart({
+                ...product,
+                selectedAttributes: {},
+                count: 1,
+              });
             }
           }}
           className="add-btn"
@@ -125,8 +130,10 @@ class ProductInfo extends Component {
 }
 
 ProductInfo.propTypes = {
-  selectedCurrency: PropTypes.object,
+  selectedCurrency: PropTypes.object.isRequired,
   addProductToCart: PropTypes.func.isRequired,
+  info: PropTypes.object.isRequired,
+  selectAttributes: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

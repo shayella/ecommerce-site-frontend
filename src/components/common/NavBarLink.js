@@ -24,6 +24,9 @@ class MyNavBarLink extends Component {
 
 MyNavBarLink.propTypes = {
   changeSelectedCategory: PropTypes.func.isRequired,
+  fetchProductByCategory: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool,
+  name: PropTypes.string.isRequired,
 };
 
 export default connect(null, {

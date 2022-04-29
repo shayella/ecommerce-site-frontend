@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import DOMPurify from "dompurify";
 
 class PurifiedProductDescription extends Component {
@@ -13,5 +14,9 @@ class PurifiedProductDescription extends Component {
     );
   }
 }
+
+PurifiedProductDescription.propTypes = {
+  description: PropTypes.string,
+};
 
 export default PurifiedProductDescription;

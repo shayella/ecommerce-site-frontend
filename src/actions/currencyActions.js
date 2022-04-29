@@ -1,18 +1,11 @@
-import { gql } from "@apollo/client";
 import { client } from "..";
+import { GET_ALL_CURRENCIES_Q } from "../queries/allQueries";
 import { GET_ALL_CURRENCIES, SET_SELECTED_CURRENCY } from "./types";
 
 export const fetchAllCurrencies = () => (dispatch) => {
   client
     .query({
-      query: gql`
-        {
-          currencies {
-            label
-            symbol
-          }
-        }
-      `,
+      query: GET_ALL_CURRENCIES_Q,
     })
     .then((result) => {
       dispatch({
@@ -26,7 +19,6 @@ export const fetchAllCurrencies = () => (dispatch) => {
 };
 
 export const changeSelectedCurrency = (selectedCurrency) => (dispatch) => {
-  console.log("Changing currency", selectedCurrency);
   dispatch({
     type: SET_SELECTED_CURRENCY,
     payload: selectedCurrency,

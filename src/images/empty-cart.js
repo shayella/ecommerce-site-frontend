@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class EmptyCartImage extends Component {
   state = {};
@@ -28,5 +29,10 @@ class EmptyCartImage extends Component {
     );
   }
 }
+
+EmptyCartImage.propTypes = {
+  size: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
+};
 
 export default EmptyCartImage;

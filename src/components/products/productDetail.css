@@ -87,6 +87,10 @@
     padding-top: 16px;
 }
 
+.description h1, .description h2,.description h3{
+    line-height: 1.2em;
+}
+
 .description ul{
     padding-left: 20px;
 }

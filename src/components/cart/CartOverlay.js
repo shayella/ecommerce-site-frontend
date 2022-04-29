@@ -15,7 +15,6 @@ class CartOverlay extends Component {
     let totalAmount = 0;
 
     this.props.cart.items.forEach((item) => {
-      console.log(item);
       let price = item.prices.filter(
         (price) => price.currency.symbol === this.props.selectedCurrency.symbol
       )[0];
@@ -110,7 +109,10 @@ class CartOverlay extends Component {
 
 CartOverlay.propTypes = {
   cart: PropTypes.object.isRequired,
-  selectedCurrency: PropTypes.object,
+  selectedCurrency: PropTypes.object.isRequired,
+  showCart: PropTypes.bool.isRequired,
+  hideCart: PropTypes.func.isRequired,
+  toggleCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

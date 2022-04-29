@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ProductImagePreviewer from "./ProductImagePreviewer";
 import "./productDetail.css";
 import { withRouter } from "../common/routerUtil";
-import { client } from "../..";
-import { gql } from "@apollo/client";
 import ProductInfo from "./ProductInfo";
+import { fetchProductById } from "../../queries";
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -13,47 +13,10 @@ class ProductDetails extends Component {
     this.selectAttributes = this.selectAttributes.bind(this);
   }
 
-  fetchProductDetails(id) {
-    const query = gql`
-      query ProductDetails($id: String!) {
-        product(id: $id) {
-          id
-          name
-          inStock
-          description
-          category
-          brand
-          attributes {
-            name
-            type
-            items {
-              displayValue
-              value
-            }
-          }
-          gallery
-          prices {
-            currency {
-              symbol
-            }
-            amount
-          }
-        }
-      }
-    `;
-
-    client
-      .query({
-        query: query,
-        variables: {
-          id: id,
-        },
-      })
-      .then((result) => {
-        this.setState({
-          product: result.data.product,
-        });
-      });
+  async fetchProductDetails(id) {
+    let data = await fetchProductById(id);
+    console.log("RESSULT ", data);
+    this.setState({ product: data });
   }
 
   selectAttributes(attrName, value) {
@@ -83,6 +46,7 @@ class ProductDetails extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
+
     this.fetchProductDetails(id);
   }
 
@@ -108,5 +72,9 @@ class ProductDetails extends Component {
     );
   }
 }
+
+ProductDetails.propTypes = {
+  match: PropTypes.object,
+};
 
 export default withRouter(ProductDetails);

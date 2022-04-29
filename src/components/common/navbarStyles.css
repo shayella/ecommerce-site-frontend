@@ -100,7 +100,6 @@
   .image-thumbnail-container::-webkit-scrollbar-thumb, .mini-cart::-webkit-scrollbar-thumb {
     background: #d1d1d1;
     height: 60px;
-
   }
   
   /* Handle on hover */

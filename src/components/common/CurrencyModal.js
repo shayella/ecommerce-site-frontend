@@ -44,8 +44,11 @@ class CurrencyOptionsModal extends Component {
 
 CurrencyOptionsModal.propTypes = {
   fetchAllCurrencies: PropTypes.func.isRequired,
-  currencies: PropTypes.object,
-  selectedCurrency: PropTypes.object,
+  currencies: PropTypes.object.isRequired,
+  selectedCurrency: PropTypes.object.isRequired,
+  showOptions: PropTypes.bool.isRequired,
+  changeSelectedCurrency: PropTypes.func.isRequired,
+  closeModal: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

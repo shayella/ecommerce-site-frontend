@@ -21,9 +21,10 @@ class ProductList extends Component {
   }
 }
 
-PropTypes.ProductList = {
-  fetchProductByCategory: PropTypes.func.isRequired,
+ProductList.propTypes = {
+  // fetchProductByCategory: PropTypes.func.isRequired,
   products: PropTypes.object,
+  selectedCategory: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 
 class CartItemAttributes extends Component {
   render() {
@@ -62,5 +63,11 @@ class CartItemAttributes extends Component {
     );
   }
 }
+
+CartItemAttributes.propTypes = {
+  attributes: PropTypes.array.isRequired,
+  isMiniCart: PropTypes.bool.isRequired,
+  selectedAttributes: PropTypes.object,
+};
 
 export default CartItemAttributes;
