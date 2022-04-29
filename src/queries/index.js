@@ -1,18 +1,16 @@
 import { client } from "..";
-import { GET_PRODUCT_BY_ID_Q } from "./allQueries";
 
-export const fetchProductById = async (id) => {
-  let data = {};
+const queryApolloClient = async (query, variables = {}) => {
+  let data = null;
   await client
-    .query({
-      query: GET_PRODUCT_BY_ID_Q,
-      variables: {
-        id: id,
-      },
-    })
+    .query({ query: query, variables: variables })
     .then((result) => {
-      console.log("DATA ", result.data.product);
-      data = result.data.product;
+      data = result.data;
+    })
+    .catch((er) => {
+      console.log("Error Occured!", er);
     });
   return data;
 };
+
+export default queryApolloClient;

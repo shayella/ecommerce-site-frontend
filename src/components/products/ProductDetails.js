@@ -4,7 +4,9 @@ import ProductImagePreviewer from "./ProductImagePreviewer";
 import "./productDetail.css";
 import { withRouter } from "../common/routerUtil";
 import ProductInfo from "./ProductInfo";
-import { fetchProductById } from "../../queries";
+import queryApolloClient from "../../queries";
+import { GET_PRODUCT_BY_ID_Q } from "../../queries/allQueries";
+import Loading from "../errors/Loading";
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -14,9 +16,10 @@ class ProductDetails extends Component {
   }
 
   async fetchProductDetails(id) {
-    let data = await fetchProductById(id);
-    console.log("RESSULT ", data);
-    this.setState({ product: data });
+    let data = await queryApolloClient(GET_PRODUCT_BY_ID_Q, {
+      id: id,
+    });
+    this.setState({ product: data.product });
   }
 
   selectAttributes(attrName, value) {
@@ -46,29 +49,21 @@ class ProductDetails extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-
     this.fetchProductDetails(id);
   }
 
-  state = {};
   render() {
+    if (this.state.product === null) return <Loading />;
+
     return (
-      <>
-        {this.state.product !== null ? (
-          <div className="product-container">
-            <ProductImagePreviewer gallery={this.state.product.gallery} />
-            <ProductInfo
-              info={this.state.product}
-              selectAttributes={this.selectAttributes}
-              key={this.state.product.id}
-            />
-          </div>
-        ) : (
-          <div className="product-container">
-            <p className="empty-cart">Loading...</p>
-          </div>
-        )}
-      </>
+      <div className="product-container">
+        <ProductImagePreviewer gallery={this.state.product.gallery} />
+        <ProductInfo
+          info={this.state.product}
+          selectAttributes={this.selectAttributes}
+          key={this.state.product.id}
+        />
+      </div>
     );
   }
 }
