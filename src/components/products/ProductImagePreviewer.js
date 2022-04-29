@@ -18,27 +18,26 @@ class ProductImagePreviewer extends Component {
     });
   }
   render() {
+    const productThumbnails = this.state.allImages.map((image, i) => {
+      return (
+        <img
+          key={image + i}
+          src={image}
+          className={
+            this.state.selectedImage === image
+              ? "image-thumbnail selected-thumbnail"
+              : "image-thumbnail"
+          }
+          onClick={() => {
+            this.setState({ selectedImage: image });
+          }}
+          alt=""
+        />
+      );
+    });
     return (
       <div className="product-image-previewer">
-        <div className="image-thumbnail-container">
-          {this.state.allImages.map((image, i) => {
-            return (
-              <img
-                key={image + i}
-                src={image}
-                className={
-                  this.state.selectedImage === image
-                    ? "image-thumbnail selected-thumbnail"
-                    : "image-thumbnail"
-                }
-                onClick={() => {
-                  this.setState({ selectedImage: image });
-                }}
-                alt=""
-              />
-            );
-          })}
-        </div>
+        <div className="image-thumbnail-container">{productThumbnails}</div>
         <div className="selected-image-container">
           <img
             src={this.state.selectedImage}
